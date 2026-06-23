@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>AI答题助手</title>
+  <link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h3>AI答题助手</h3>
+    <button id="settingsToggleBtn" class="icon-btn">AI设置</button>
+  </div>
+
+  <div class="model-row">
+    <label>当前模型：</label>
+    <select id="modelSelect"></select>
+  </div>
+
+  <div class="button-row-grid">
+    <div class="btn-card" id="autoAnswerCard">
+      <span class="card-title">自动答题</span>
+      <label class="switch">
+        <input type="checkbox" id="autoAnswerToggle"/>
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="btn-card" id="autoNextCard">
+      <span class="card-title">自动下一局</span>
+      <label class="switch">
+        <input type="checkbox" id="autoNextToggle"/>
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <button id="floatingBtn" class="action-small-btn">悬浮窗</button>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button id="recognizeAndAskBtn" class="primary-big-btn">识别题目并解答</button>
+  </div>
+
+  <div id="settingsPanel" class="settings-panel hidden">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <span class="settings-title">模型管理列表</span>
+      <button id="toggleAddModelBtn" class="icon-btn" style="background:#22c55e;">+ 添加新模型</button>
+    </div>
+    
+    <div id="modelListContainer" style="max-height:120px; overflow-y:auto; margin-bottom:10px;"></div>
+    
+    <div id="addModelForm" class="hidden" style="margin-top:10px; padding:10px; background:#e2e8f0; border-radius:8px;">
+      <input type="hidden" id="editingModelId" value=""/>
+      <div class="api-key-field"><label>1. 显示名称：</label><input type="text" id="newModelName" placeholder="如: 我的自定义大模型"/></div>
+      <div class="api-key-field"><label>2. API URL：</label><input type="text" id="newModelUrl" placeholder="https://api.xxxx.com/v1/chat/completions"/></div>
+      <div class="api-key-field"><label>3. API Key：</label><input type="password" id="newModelKey" placeholder="sk-..."/></div>
+      <div class="api-key-field"><label>4. 模型参数：</label><input type="text" id="newModelRequestName" placeholder="deepseek-chat"/></div>
+      <div style="display: flex; gap: 8px; margin-top:8px;">
+        <button id="addCustomModelBtn" class="save-btn" style="flex:1; background:#3b82f6;">保存并应用</button>
+        <button id="cancelAddModelBtn" class="save-btn" style="background:#94a3b8; flex:1;">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-area" style="margin-top:12px; display: flex; flex-direction: column; gap: 6px;">
+    <div id="loadingIndicator" class="loading hidden">AI 正在深度分析中(限时3秒)...</div>
+    <div id="answerContent" class="res-box answer-content" style="padding:6px; background:#f0fdf4; color:#166534; font-weight:bold; font-size:12px; border-left:3px solid #22c55e; border-radius:4px;">等待作业触发...</div>
+    <div id="parseContent" class="res-box parse-content" style="font-size:11px; color:#64748b; padding:4px 6px; background:#fafafa; border-left:3px solid #3b82f6; border-radius:4px;">请在上方配置并开启自动化功能</div>
+    <div id="statusContent" class="res-box status-content" style="font-size:11px; color:#b45309; padding:6px; background:#fffbeb; border-left:3px solid #f59e0b; border-radius:4px; font-weight:500; line-height:1.4;">状态：就绪，等待题目检测...</div>
+  </div>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
+
